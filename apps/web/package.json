@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -17,12 +19,15 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@tools/eslint": "workspace:*",
+    "@tools/prettier": "workspace:*",
+    "@tools/typescript": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
+    "prettier": "^3.7.4",
     "typescript": "5.9.2"
-  }
+  },
+  "prettier": "@tools/prettier/react"
 }

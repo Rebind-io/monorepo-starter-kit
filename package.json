@@ -21,14 +21,13 @@
   "prettier": "@tools/prettier",
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx,json,css,md,mdx,yaml,yml}": [
-      "prettier --write",
-      "prettier --check"
+      "prettier --write"
     ],
     "apps/**/*.{ts,tsx,js,jsx}": [
-      "turbo run lint --filter=web --filter=docs"
+      "bash -c 'turbo run lint --filter=web --filter=docs'"
     ],
     "packages/**/*.{ts,tsx,js,jsx}": [
-      "turbo run lint --filter=@repo/ui"
+      "bash -c 'turbo run lint --filter=@repo/ui'"
     ]
   },
   "packageManager": "pnpm@9.0.0",

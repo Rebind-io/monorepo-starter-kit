@@ -26,10 +26,10 @@
       "prettier --write"
     ],
     "apps/**/*.{ts,tsx,js,jsx}": [
-      "bash -c 'turbo run lint --filter=web --filter=docs'"
+      "bash -c 'turbo run lint --filter=web'"
     ],
     "packages/**/*.{ts,tsx,js,jsx}": [
-      "bash -c 'turbo run lint --filter=@repo/ui'"
+      "bash -c 'turbo run lint --filter=@workspace/ui'"
     ]
   },
   "packageManager": "pnpm@9.0.0",

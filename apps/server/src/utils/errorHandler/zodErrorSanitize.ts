@@ -5,7 +5,7 @@ const zodErrorSanitize = (err: ZodError) => {
     (acc, cur) => {
       const path = cur.path[cur.path.length - 1];
 
-      acc[path] = `${path} is ${cur.message}!`;
+      // acc[path] = `${path} is ${cur.message}!`;
 
       return acc;
     },

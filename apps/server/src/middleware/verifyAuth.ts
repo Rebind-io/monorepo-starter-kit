@@ -1,11 +1,10 @@
+import authToken from '@utils/AuthToken';
+import AppError from '@utils/errorHandler/AppError';
 import { RequestHandler } from 'express';
 import httpStatus from 'http-status';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
 
-import config from '../config';
-import AppError from '../utils/errorHandler/AppError';
-
-const verifyAuth: RequestHandler = (req, _res, next) => {
+const verifyAuth: RequestHandler = async (req, _res, next) => {
   const bearerToken = req.headers.authorization;
 
   if (bearerToken) {
@@ -13,10 +12,7 @@ const verifyAuth: RequestHandler = (req, _res, next) => {
 
     if (token) {
       try {
-        const decode = jwt.verify(
-          token,
-          config.JWT_ACCESS_SECRET as string
-        ) as JwtPayload;
+        const decode = (await authToken.verify(token)) as JwtPayload;
 
         req.user = {
           _id: decode?._id,

@@ -1,3 +1,4 @@
+import notFound from '@middleware/notFound';
 import cors from 'cors';
 import express, { Application } from 'express';
 import morgan from 'morgan';
@@ -11,8 +12,8 @@ app.use(cors({ origin: '*' }));
 // application routes
 // app.use('/api/v1', rootRoutes);
 
-//Not Found Route
-// app.use(notFound);
+// Not Found Route
+app.use(notFound);
 
 // Global Error Handler
 // app.use(globalErrorHandler);

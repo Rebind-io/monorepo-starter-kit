@@ -9,4 +9,5 @@ export default {
   LOCAL_MONGO_URI: process.env.LOCAL_MONGO_URI,
   CLOUD_MONGO_URI: process.env.CLOUD_MONGO_URI,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+  LOG_LEVEL: process.env.LOG_LEVEL || 'info',
 };

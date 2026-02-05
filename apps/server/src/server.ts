@@ -1,7 +1,6 @@
-import config from '@config';
+import { config, connectDB } from '@config';
 import { logger } from '@utils/logger';
 import { Server, createServer } from 'http';
-import mongoose from 'mongoose';
 
 import app from './app';
 
@@ -9,7 +8,7 @@ let server: Server = createServer(app);
 
 async function main() {
   try {
-    await mongoose.connect(config.LOCAL_MONGO_URI as string);
+    await connectDB();
 
     server = server.listen(config.PORT, () => {
       logger.info(`Server is listening on port ${config.PORT}`);

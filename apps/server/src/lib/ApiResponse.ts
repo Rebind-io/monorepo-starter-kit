@@ -11,7 +11,12 @@ interface Paginate {
 
 interface IResponse<T> {
   statusCode: number;
-  success: boolean;
+  message: string;
+  data: T;
+}
+
+interface IResponsePaginate<T> {
+  statusCode: number;
   message: string;
   paginate?: Paginate;
   data: T;
@@ -24,9 +29,9 @@ interface IError {
 
 interface IErrorResponse {
   statusCode: number;
-  success: boolean;
   message: string;
   errors: Record<string, IError>;
+  stack?: string | null;
 }
 
 export class ApiResponse {
@@ -39,7 +44,7 @@ export class ApiResponse {
     });
   }
 
-  static withPagination<T>(res: Response, responses: IResponse<T>) {
+  static withPagination<T>(res: Response, responses: IResponsePaginate<T>) {
     return res.status(responses.statusCode).json({
       statusCode: responses.statusCode,
       success: true,
@@ -55,6 +60,7 @@ export class ApiResponse {
       success: false,
       message: responses.message,
       errors: responses.errors,
+      stack: responses.stack || null,
     });
   }
 }

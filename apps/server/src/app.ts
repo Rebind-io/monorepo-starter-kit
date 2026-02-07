@@ -1,4 +1,7 @@
 import { config } from '@config';
+import { ApiResponse } from '@lib/ApiResponse';
+import globalErrorHandler from '@middleware/globalErrorHandler';
+import rootRouter from '@routes/index';
 import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
@@ -41,11 +44,21 @@ class App {
   }
 
   private initializeRoutes(): void {
-    // this.app.use('/api/v1', routes); // Uncomment and update the path to your routes
+    // health check route
+    this.app.get('/health', (_req, res) => {
+      ApiResponse.success(res, {
+        statusCode: 200,
+        message: 'Server is healthy!',
+        data: null,
+      });
+    });
+
+    // API routes
+    this.app.use('/api/v1', rootRouter);
   }
 
   private initializeErrorHandling(): void {
-    // this.app.use(errorMiddleware);
+    this.app.use(globalErrorHandler);
   }
 }
 

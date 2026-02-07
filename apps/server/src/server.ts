@@ -1,6 +1,6 @@
-import config from '@config';
+import { config, connectDB } from '@config';
+import { logger } from '@utils/logger';
 import { Server, createServer } from 'http';
-import mongoose from 'mongoose';
 
 import app from './app';
 
@@ -8,20 +8,21 @@ let server: Server = createServer(app);
 
 async function main() {
   try {
-    await mongoose.connect(config.CLOUD_MONGO_URI as string);
+    await connectDB();
 
     server = server.listen(config.PORT, () => {
-      console.log(`Server is listening on port ${config.PORT}`);
+      logger.info(`Server is listening on port ${config.PORT}`);
     });
   } catch (err) {
-    console.log(err);
+    logger.error(`😈 Failed to connect database, shutting down...`);
+    process.exit(1);
   }
 }
 
 main();
 
 process.on('unhandledRejection', (err) => {
-  console.log(`😈 unhandledRejection is detected , shutting down ...`, err);
+  logger.error(`😈 unhandledRejection is detected, shutting down...`, err);
   if (server) {
     server.close(() => {
       process.exit(1);
@@ -31,6 +32,6 @@ process.on('unhandledRejection', (err) => {
 });
 
 process.on('uncaughtException', () => {
-  console.log(`😈 uncaughtException is detected , shutting down ...`);
+  logger.error(`😈 uncaughtException is detected, shutting down...`);
   process.exit(1);
 });

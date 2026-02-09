@@ -1,8 +1,8 @@
 import { Response } from 'express';
 
 interface Paginate {
-  limit: number;
   page: number;
+  limit: number;
   totalPage: number;
   totalCount: number;
   hasNextPage: boolean;
@@ -18,7 +18,7 @@ interface IResponse<T> {
 interface IResponsePaginate<T> {
   statusCode: number;
   message: string;
-  paginate?: Paginate;
+  paginate: Paginate;
   data: T;
 }
 
@@ -30,7 +30,7 @@ interface IError {
 interface IErrorResponse {
   statusCode: number;
   message: string;
-  errors: Record<string, IError>;
+  errors?: Record<string, IError>;
   stack?: string | null;
 }
 

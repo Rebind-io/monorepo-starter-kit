@@ -1,4 +1,4 @@
-import authToken from '@utils/AuthToken';
+import { AuthToken } from '@utils/AuthToken';
 import AppError from '@utils/errorHandler/AppError';
 import { RequestHandler } from 'express';
 import httpStatus from 'http-status';
@@ -12,7 +12,7 @@ const verifyAuth: RequestHandler = async (req, _res, next) => {
 
     if (token) {
       try {
-        const decode = (await authToken.verify(token)) as JwtPayload;
+        const decode = (await AuthToken.verify(token)) as JwtPayload;
 
         req.user = {
           _id: decode?._id,
